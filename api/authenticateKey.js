@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import ContentModel from "../models/contentModel.js";
+import Project from "../models/projectModel.js"; // Assuming you have the project model defined
 
 const authenticateKey = asyncHandler(
   async ({ headers: { authorization }, params: { projectId } }, res, next) => {
@@ -39,6 +40,18 @@ const authenticateKey = asyncHandler(
     }, {});
 
     res.send(groupedContents);
+
+    // Increment the call count and save to the database
+    try {
+      const project = await Project.findById(projectId);
+      if (project) {
+        project.callCount = (project.callCount || 0) + 1;
+        await project.save();
+      }
+    } catch (error) {
+      // Handle error if project not found or other issues
+      console.error("Error updating call count:", error);
+    }
   }
 );
 

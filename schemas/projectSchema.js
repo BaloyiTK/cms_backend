@@ -14,6 +14,10 @@ const projectSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    apiCall: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );

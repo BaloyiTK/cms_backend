@@ -14,7 +14,6 @@ const autoPublishContent = async () => {
     const publishDateTime = new Date(content.publishDateTime);
 
     if (publishDateTime <= now) {
-      console.log(content.stage);
       content.stage = "Published";
       await content.save();
     }

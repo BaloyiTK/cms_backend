@@ -11,8 +11,9 @@ cloudinary.config({
 
 const editContent = asyncHandler(async (req, res) => {
   const { contentId } = req.params;
-  const { inputValues, dynamicFields } = req.body;
-
+  const { inputValues, dynamicFields,stage } = req.body;
+  
+  console.log(stage)
   try {
     // Filter only the fields of type "Media" from dynamicFields and extract their names
     const mediaFieldNames = dynamicFields
@@ -40,7 +41,7 @@ const editContent = asyncHandler(async (req, res) => {
         
         } else if (mediaValue.startsWith("data:image/")) {
           
-          const cloudinaryResponse = await cloudinary.uploader.upload(mediaValue);
+          const cloudinaryResponse = await cloudinary.uploader.upload(mediaValue)
           inputValues[fieldName] = cloudinaryResponse.secure_url;
     
         }
@@ -54,7 +55,7 @@ const editContent = asyncHandler(async (req, res) => {
     // Find the content by contentId and modelName
     const updatedContent = await ContentModel.findByIdAndUpdate(
       contentId,
-      inputValues,
+      { ...inputValues, stage },
       { new: true }
     );
 

@@ -42,7 +42,7 @@ const addContent = asyncHandler(async (req, res) => {
     
 
     res.status(400);
-    throw new Error("The following fields are required: " + missingFields.join(", "));
+    throw new Error("The following fields are required: " + missingFields.join(", "))
     
   } else {
     try {
