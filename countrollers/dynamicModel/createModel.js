@@ -16,11 +16,13 @@ const createModel = asyncHandler(async (req, res) => {
   }
 
   if (!project) {
-    return res.status(404).send("Project not found");
+    res.status(400);
+    throw new Error("Project not found!");
   }
 
   if (model) {
-    return res.status(409).send("Model already created");
+    res.status(409);
+    throw new Error("Model already exist!");
   }
 
   const convertedSchema = {
