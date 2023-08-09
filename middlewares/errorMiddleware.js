@@ -9,4 +9,4 @@ const erroHanndler = (err, req, res, next) => {
   }
 };
 
-export default erroHanndler;
+export default erroHanndler
