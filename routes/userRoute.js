@@ -9,6 +9,8 @@ import logout from "../countrollers/user/logout.js";
 import deleteUser from "../countrollers/user/deleteUser.js";
 import loginStatus from "../countrollers/user/loginStatus.js";
 import updateUser from "../countrollers/user/updateUser.js";
+import forgotPassword from "../countrollers/user/forgotPassword.js";
+import resetPassword from "../countrollers/user/resetPassword.js";
 
 // Set up Multer storage engine
 const storage = multer.diskStorage({
@@ -38,6 +40,8 @@ router.get("/user", protect, getUser);
 router.get("/logout", protect, logout);
 router.get("/delete", protect, deleteUser);
 router.patch("/updateuser", protect, upload.single("profilePicture"), updateUser);
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword);
 
 //router.patch("/updateuser", protect, updateUser);
 

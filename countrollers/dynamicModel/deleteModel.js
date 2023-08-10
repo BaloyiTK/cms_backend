@@ -1,28 +1,4 @@
-// import DynamicModel from "../../models/dynamicModel.js";
 
-// const deleteModel = async (req, res) => {
-//   const { projectId } = req.params;
-//   const { modelName } = req.body.selectedModel;
-
-//   try {
-//     // Delete the documents that match the projectId and modelName
-//     const deleteResult = await DynamicModel.deleteOne({ projectId, modelName });
-
-//     if (deleteResult.deletedCount > 0) {
-//       // Documents were deleted successfully
-//       res.send("Documents deleted successfully.");
-//     } else {
-//       // No documents were found or deleted
-//       res.send("No documents found for deletion.");
-//     }
-//   } catch (error) {
-//     // Handle any errors that occurred during the deletion process
-//     console.error("Error deleting documents:", error);
-//     res.status(500).send("Error deleting documents.");
-//   }
-// };
-
-// export default deleteModel;
 import DynamicModel from "../../models/dynamicModel.js";
 import ContentModel from "../../models/contentModel.js";
 
@@ -32,10 +8,16 @@ const deleteModel = async (req, res) => {
 
   try {
     // Delete the associated content
-    const deleteAssociatedContentResult = await ContentModel.deleteMany({ projectId, modelName });
-    
+    const deleteAssociatedContentResult = await ContentModel.deleteMany({
+      projectId,
+      modelName,
+    });
+
     // Delete the model
-    const deleteModelResult = await DynamicModel.deleteOne({ projectId, modelName });
+    const deleteModelResult = await DynamicModel.deleteOne({
+      projectId,
+      modelName,
+    });
 
     if (deleteModelResult.deletedCount > 0) {
       // Model and associated content were deleted successfully
