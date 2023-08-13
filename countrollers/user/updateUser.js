@@ -2,8 +2,11 @@ import asyncHandler from "express-async-handler";
 import User from "../../models/userModel.js";
 import cloudinary from "cloudinary";
 import ContentModel from "../../models/contentModel.js";
+import dotenv from "dotenv";
 
-// Configure the Cloudinary SDK with your account details
+dotenv.config();
+
+
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,

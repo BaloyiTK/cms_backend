@@ -5,15 +5,22 @@ import DynamicModel from "../../models/dynamicModel.js";
 const deleteProject = asyncHandler(async (req, res) => {
   const { projectId } = req.params;
 
-  // Find the project by ID
-  const project = await Project.findByIdAndDelete(projectId);
+  try {
+    // Find the project by ID and delete it
+    const project = await Project.findByIdAndDelete(projectId);
 
-  const dynamicModels = await DynamicModel.deleteMany({ projectId });
+    // Delete associated dynamic models
+    await DynamicModel.deleteMany({ projectId });
 
-  if (project) {
+    if (!project) {
+      res.status(404);
+      throw new Error("Project not found");
+    }
+
     res.status(200).json({ message: "Project deleted successfully" });
-  } else {
-    res.status(404).json({ message: "Project not found" });
+  } catch (error) {
+    res.status(500);
+    throw new Error("An error occurred while deleting the project");
   }
 });
 

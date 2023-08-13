@@ -16,7 +16,10 @@ export const passwordResetEmail = async (token, user, type) => {
   });
 
   const resetLink = `${process.env.RESET_PASSWORD_URL}?token=${token}`;
+
   let currentDate = new Date();
+  const expirationTime = new Date(currentDate.getTime() + 60 * 60 * 1000);
+  const localizedExpirationTime = expirationTime.toLocaleString();
 
   if (type === "forgot") {
     const message = {
@@ -97,9 +100,7 @@ export const passwordResetEmail = async (token, user, type) => {
     
               <p><a href="${resetLink}" target="_blank">Reset Password</a></p>
     
-              <p>Please note that the link will expire in 1 hour, which is on ${new Date(
-                currentDate.getTime() + 60 * 60 * 1000
-              )}. If you do not reset your password within this time, you may need to request a new link.</p>
+               <p>Please note that the link will expire in 1 hour, which is on ${localizedExpirationTime}. If you do not reset your password within this time, you may need to request a new link.</p>
     
               <p>If you did not request a password reset, please ignore this message and contact us immediately if you suspect any unauthorized access to your account.</p>
     
@@ -111,7 +112,6 @@ export const passwordResetEmail = async (token, user, type) => {
         </html>
       `,
     };
-    
 
     await transporter.sendMail(message);
   } else {
@@ -205,7 +205,7 @@ export const passwordResetEmail = async (token, user, type) => {
         </body>
         </html>`, // html body
     };
-    
+
     await transporter.sendMail(message);
   }
 };
