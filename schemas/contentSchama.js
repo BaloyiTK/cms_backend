@@ -1,18 +1,23 @@
 import mongoose from "mongoose";
 
-const contentSchema = mongoose.Schema(
+const contentSchema = new mongoose.Schema(
   {
-    // Set dynamic fields using the Mixed type
-    dynamicFields: {
-      type: mongoose.Schema.Types.Mixed,
-      required: true,
-    },
-    userId: {
+    modelName: {
       type: String,
       required: true,
     },
+    stage: {
+      type: String,
+      required: true,
+    },
+    relatedModels: [
+      { type: mongoose.Schema.Types.ObjectId, ref: 'DynamicModel' } // Assuming 'DynamicModel' is the related model's name
+    ]
+    // Add other properties specific to your ContentModel
   },
-  { timestamps: true }
+  { strict: false, timestamps: true }
 );
 
-export default contentSchema;
+const ContentModel = mongoose.model("ContentModel", contentSchema);
+
+export default ContentModel;

@@ -1,7 +1,6 @@
 import ContentModel from "../../models/contentModel.js";
 import User from "../../models/userModel.js";
 import asyncHandler from "express-async-handler";
-import moment from "moment"
 
 const addContent = asyncHandler(async (req, res) => {
   const userId = req.user_id;

@@ -10,6 +10,9 @@ const contentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    relatedModels: [
+      { type: mongoose.Schema.Types.ObjectId, ref: 'DynamicModel' } // Assuming 'DynamicModel' is the related model's name
+    ]
     // Add other properties specific to your ContentModel
   },
   { strict: false, timestamps: true }

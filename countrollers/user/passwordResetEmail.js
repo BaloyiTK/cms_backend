@@ -17,9 +17,23 @@ export const passwordResetEmail = async (token, user, type) => {
 
   const resetLink = `${process.env.RESET_PASSWORD_URL}?token=${token}`;
 
+ 
   let currentDate = new Date();
   const expirationTime = new Date(currentDate.getTime() + 60 * 60 * 1000);
-  const localizedExpirationTime = expirationTime.toLocaleString();
+
+  const options = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    timeZoneName: 'short',
+  };
+
+  const formattedExpirationTime = new Intl.DateTimeFormat('en-US', options).format(expirationTime);
+
+
 
   if (type === "forgot") {
     const message = {
@@ -100,7 +114,7 @@ export const passwordResetEmail = async (token, user, type) => {
     
               <p><a href="${resetLink}" target="_blank">Reset Password</a></p>
     
-               <p>Please note that the link will expire in 1 hour, which is on ${localizedExpirationTime}. If you do not reset your password within this time, you may need to request a new link.</p>
+               <p>Please note that the link will expire in 1 hour, which is on ${formattedExpirationTime}. If you do not reset your password within this time, you may need to request a new link.</p>
     
               <p>If you did not request a password reset, please ignore this message and contact us immediately if you suspect any unauthorized access to your account.</p>
     
@@ -111,7 +125,7 @@ export const passwordResetEmail = async (token, user, type) => {
           </body>
         </html>
       `,
-    };
+    }
 
     await transporter.sendMail(message);
   } else {
@@ -184,7 +198,7 @@ export const passwordResetEmail = async (token, user, type) => {
               <div class="message">
                 <p>Dear ${user.username},</p>
     
-                <p>We would like to confirm that your admin password for Basani Primary School has been successfully reset.</p>
+                <p>We would like to confirm that your password reset for XpandCMS has been successfully.</p>
     
                 <p>If you did not initiate this request, please contact our support team immediately at <a href="mailto:${process.env.EMAIL_ADDRESS}">${process.env.EMAIL_ADDRESS}</a>.</p>
     
@@ -198,8 +212,8 @@ export const passwordResetEmail = async (token, user, type) => {
               </div>
     
               <div class="footer">
-                <p>Thank you for choosing Basani Primary School.</p>
-                <p>The Basani Primary School Team</p>
+                <p>Thank you for choosing XpandCMS.</p>
+                
               </div>
           </div>
         </body>
