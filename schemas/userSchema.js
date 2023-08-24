@@ -1,6 +1,18 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
+const roleSchema = mongoose.Schema({
+  projectId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Project', // Assuming you have a Project schema
+    required: true,
+  },
+  role: {
+    type: String,
+    required: true,
+  },
+});
+
 const userSchema = mongoose.Schema(
   {
     username: {
@@ -25,6 +37,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    roles: [roleSchema], // Array to store project-specific roles
   },
   { timestamps: true }
 );
@@ -35,7 +48,7 @@ userSchema.pre("save", async function (next) {
   }
 
   const saltRounds = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(this.password, saltRounds); // await the hash method
+  const hashedPassword = await bcrypt.hash(this.password, saltRounds);
   this.password = hashedPassword;
   next();
 });

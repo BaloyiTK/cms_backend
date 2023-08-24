@@ -1,16 +1,5 @@
 import asyncHandler from "express-async-handler";
 import Project from "../../models/projectModel.js";
-import cloudinary from "cloudinary";
-import dotenv from "dotenv";
-
-//dotenv.config();
-
-// Configure the Cloudinary SDK with your account details
-// cloudinary.config({
-//   cloud_name: process.env.CLOUD_NAME,
-//   api_key: process.env.API_KEY,
-//   api_secret: process.env.API_SECRET,
-// });
 
 const addProject = asyncHandler(async (req, res) => {
   const { name, description } = req.body;
@@ -21,8 +10,8 @@ const addProject = asyncHandler(async (req, res) => {
     throw new Error("Please fill in all the required fields");
   }
 
-  // Check if project with the same name already exists
-  const existingProject = await Project.findOne({ name, userId });
+  // Check if a project with the same name already exists for the current user
+  const existingProject = await Project.findOne({ name, "users.user": userId });
 
   if (existingProject) {
     res.status(400);
@@ -32,7 +21,12 @@ const addProject = asyncHandler(async (req, res) => {
   const project = await Project.create({
     name,
     description,
-    userId,
+    users: [
+      {
+        user: userId, // Associate the current user with the project
+        role: "admin", // Assign the role to the current user as 'admin'
+      },
+    ],
   });
 
   return res.status(200).json({

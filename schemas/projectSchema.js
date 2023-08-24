@@ -1,3 +1,29 @@
+// import mongoose from "mongoose";
+
+// const projectSchema = mongoose.Schema(
+//   {
+//     name: {
+//       type: String,
+//       required: true,
+//     },
+//     description: {
+//       type: String,
+//       required: false,
+//     },
+//     userId: {
+//       type: String,
+//       required: true,
+//     },
+//     apiCall: {
+//       type: String,
+//       required: false,
+//     },
+//   },
+//   { timestamps: true }
+// );
+
+// export default projectSchema;
+
 import mongoose from "mongoose";
 
 const projectSchema = mongoose.Schema(
@@ -10,10 +36,15 @@ const projectSchema = mongoose.Schema(
       type: String,
       required: false,
     },
-    userId: {
-      type: String,
-      required: true,
-    },
+    users: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        role: String, // Store the role for each user
+      },
+    ],
     apiCall: {
       type: String,
       required: false,
@@ -22,4 +53,6 @@ const projectSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-export default projectSchema;
+
+export default projectSchema
+
