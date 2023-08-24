@@ -20,13 +20,8 @@ const addProjectMember = asyncHandler(async (req, res) => {
 
     }
 
-    if (!email || !password) {
-      res.status(400);
-      throw new Error("Please fill all the required fields!");
-    }
-
     // Find the project by its ID
-    const project = await Project.findById(projectId);
+    const project = await Project.findById(projectId)
 
     if (!project) {
       res.status(404);
@@ -57,8 +52,14 @@ const addProjectMember = asyncHandler(async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500);
-    throw new Error("An error occurred while adding the member to the project.");
+    res.status(500).json({
+      message: "An error occurred while adding the member to the project.",
+
+
+    }
+    );
+
+    
   }
 });
 
