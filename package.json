@@ -28,5 +28,8 @@
     "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.4",
     "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "jest": "^29.6.4"
   }
 }
