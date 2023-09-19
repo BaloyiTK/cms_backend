@@ -45,6 +45,7 @@ app.use("/api", projectRouter);
 app.use("/api", modelRouter);
 app.use("/api", contentRouter);
 app.use("/api", apiRouter);
+app.use('/favicon.ico', express.static('/'));
 
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
