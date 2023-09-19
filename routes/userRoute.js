@@ -31,9 +31,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Create the uploads directory if it does not exist
-if (!fs.existsSync("./uploads")) {
-  fs.mkdirSync("./uploads");
-}
+//if (!fs.existsSync("./uploads")) {
+//  fs.mkdirSync("./uploads");
+//}
 
 const router = express.Router();
 
