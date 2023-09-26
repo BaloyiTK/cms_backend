@@ -35,9 +35,6 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
-app.get("/", (req, res) => {
-  res.send("Welcome to the home page!");
-});
 
 app.use(cookieParser());
 app.use(express.json({ limit: "10mb" }));
