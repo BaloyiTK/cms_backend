@@ -1,6 +1,5 @@
 import express from "express";
 import multer from "multer";
-import fs from "fs"; // You can remove this line
 import register from "../countrollers/user/register.js";
 import login from "../countrollers/user/login.js";
 import protect from "../middlewares/authMiddleware.js";
