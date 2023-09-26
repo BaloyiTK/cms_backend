@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 });
 
 // Set up Multer upload middleware
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage })
 
 // Create the uploads directory if it does not exist
 //if (!fs.existsSync("./uploads")) {
