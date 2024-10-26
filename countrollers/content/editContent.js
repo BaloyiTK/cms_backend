@@ -13,7 +13,7 @@ const editContent = asyncHandler(async (req, res) => {
   const { contentId } = req.params;
   const { inputValues, dynamicFields,stage } = req.body;
   
-  console.log(stage)
+
   try {
     // Filter only the fields of type "Media" from dynamicFields and extract their names
     const mediaFieldNames = dynamicFields
