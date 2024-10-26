@@ -38,7 +38,7 @@ const addContent = asyncHandler(async (req, res) => {
       const fieldValue = req.body.formData[fieldName];
 
       if (requiredField && !fieldValue) {
-        missingFields.push(fieldName);
+        missingFields.push(fieldName)
       } else if (fieldType === "Media") {
         console.log(`Found media field: ${fieldName}, value: ${fieldValue}`); // Log if it's a media field
         try {
