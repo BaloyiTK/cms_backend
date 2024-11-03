@@ -17,7 +17,6 @@ const authenticateKey = asyncHandler(
     }
 
     const contents = await ContentModel.find({
-      userId: user.id,
       stage: "Published",
       projectId,
     });
