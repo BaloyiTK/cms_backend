@@ -40,6 +40,7 @@ const addContent = asyncHandler(async (req, res) => {
       if (requiredField && !fieldValue) {
         missingFields.push(fieldName)
       } else if (fieldType === "Media") {
+        console.log(fieldValue)
         console.log(`Found media field: ${fieldName}, value: ${fieldValue}`); // Log if it's a media field
         try {
           const uploadResult = await cloudinary.v2.uploader.upload(fieldValue, {

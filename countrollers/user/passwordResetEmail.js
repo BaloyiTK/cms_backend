@@ -11,7 +11,7 @@ export const passwordResetEmail = async (token, user, type) => {
     secure: false, // true for 465, false for other ports
     auth: {
       user: process.env.EMAIL_ADDRESS, // your email address
-      pass: process.env.EMAIL_PASS1, // your email password
+      pass: process.env.EMAIL_PASS, // your email password
     },
   });
 
